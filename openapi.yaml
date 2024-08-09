@@ -1126,8 +1126,8 @@ components:
             - BAAI/bge-m3
         input:
           description: |
-                        Input text to embed, encoded as a string or array of tokens. To embed multiple inputs in a single request, pass an array of strings or array of token arrays. The input must not exceed the max input tokens for the model (512 tokens for current models), cannot be an empty string.
-                        输入的文本将被编码为字符串或 tokens 数组。要在单个请求中嵌入多个输入，请传递字符串数组或字符串数组。每个字符串不得超过模型的最大 tokens 限制（当前模型为512tokens），且不能为空字符串。
+                        Input text to embed, encoded as a string or array of tokens. To embed multiple inputs in a single request, pass an array of strings or array of token arrays. The input must not exceed the max input tokens for the model (512 tokens for all models except BAAI/bge-m3 which is 8192), cannot be an empty string.
+                        输入的文本将被编码为字符串或 tokens 数组。要在单个请求中嵌入多个输入，请传递字符串数组或字符串数组。每个字符串不得超过模型的最大 tokens 限制（BAAI/bge-m3模型为8192tokens，其余模型为512tokens），且不能为空字符串。
           default: "硅基流动embedding上线，多快好省的 embedding 服务，快来试试吧"
 
           oneOf:
