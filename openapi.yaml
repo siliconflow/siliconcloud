@@ -303,6 +303,63 @@ paths:
                 $ref: '#/components/schemas/StringData'
       deprecated: false
 
+  /audio/transcriptions :
+    post:
+      summary: Create Audio Transcriptions
+      description: Creates an audio transcription.
+      operationId: createAudioTranscriptions
+      tags:
+        - Audio
+      requestBody:
+        content:
+           multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AudioRequest'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudioResponse'
+        '400':
+          description: 'BadRequest'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+        '404':
+          description: 'NotFound'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+        '429':
+          description: 'RateLimit'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+        '503':
+          description: 'Overloaded'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+        '504':
+          description: 'Timeout'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+      deprecated: false
+
   /black-forest-labs/FLUX.1-schnell/text-to-image:
     post:
       summary: Flux.1-schnell
@@ -1065,6 +1122,8 @@ components:
           enum:
             - BAAI/bge-large-zh-v1.5
             - BAAI/bge-large-en-v1.5
+            - netease-youdao/bce-embedding-base_v1
+            - BAAI/bge-m3
         input:
           description: |
                         Input text to embed, encoded as a string or array of tokens. To embed multiple inputs in a single request, pass an array of strings or array of token arrays. The input must not exceed the max input tokens for the model (512 tokens for current models), cannot be an empty string.
@@ -1148,6 +1207,34 @@ components:
             - prompt_tokens
             - total_tokens
             - completion_tokens
+
+    AudioRequest:
+      type: object
+      required:
+        - model
+        - file
+      properties:
+        file:
+          type: string
+          description: The audio file object (not file name) to transcribe
+          format: binary
+        model:
+          type: string
+          description: The name of the audio model to use.
+          example: iic/SenseVoiceSmall
+          enum:
+            - iic/SenseVoiceSmall
+    
+    AudioResponse:
+      type: object
+      description: Represents a transcription response returned by model, based on the provided input.
+      required:
+        - text
+      properties:
+        text:
+          description: The transcribed text.
+          type: string
+
 
     StringData:
       type: string
