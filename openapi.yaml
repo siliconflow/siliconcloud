@@ -360,6 +360,63 @@ paths:
                 $ref: '#/components/schemas/StringData'
       deprecated: false
 
+  /rerank :
+    post:
+      summary: Create Rerank 
+      description: Creates a rerank request.
+      operationId: createRerank
+      tags:
+        - Rerank
+      requestBody:
+        content:
+           application/json:
+            schema:
+              $ref: '#/components/schemas/RerankRequest'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RerankResponse'
+        '400':
+          description: 'BadRequest'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+        '404':
+          description: 'NotFound'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+        '429':
+          description: 'RateLimit'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+        '503':
+          description: 'Overloaded'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+        '504':
+          description: 'Timeout'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StringData'
+      deprecated: false
+
   /black-forest-labs/FLUX.1-schnell/text-to-image:
     post:
       summary: Flux.1-schnell
@@ -1208,6 +1265,86 @@ components:
             - total_tokens
             - completion_tokens
 
+    RerankRequest:
+      type: object
+      required:
+        - model
+        - query 
+        - documents
+      properties:
+                model:
+                  type: string
+                  description: Specifies the model to be used.
+                  example: BAAI/bge-reranker-v2-m3
+                  enum:
+                    - BAAI/bge-reranker-v2-m3
+                    - netease-youdao/bce-reranker-base_v1
+                query:
+                  type: string
+                  description: Required. The search query.
+                  example: Apple
+                  default: Apple
+                documents:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: string
+                  description: Required. List of documents to be reordered. If document objects are provided, the 'text' field is mandatory, and other fields will be preserved in the response.
+                  example: ["苹果", "香蕉", "水果", "蔬菜"]
+                  default: ["苹果", "香蕉", "水果", "蔬菜"]
+                top_n:
+                  type: integer
+                  example: 4
+                  description: Number of most relevant documents or indices to return.
+                return_documents:
+                  type: boolean
+                  default: false
+                  description: If false, the response does not include document text; if true, it includes the input document text.
+                max_chunks_per_doc:
+                  type: integer
+                  default: 1024
+                  description: Maximum number of chunks generated from within a document. Long documents are divided into multiple chunks for calculation, and the highest score among the chunks is taken as the document's score.
+                overlap_tokens:
+                  type: integer
+                  default: 80
+                  maximum: 80
+                  description: Number of token overlaps between adjacent chunks when documents are chunked.
+
+
+    RerankResponse:
+      type: object
+      required:
+        - id
+        - results
+        - tokens
+      properties:
+                  id:
+                    type: string
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        document:
+                          type: object
+                          properties:
+                            text:
+                              type: string
+                          description:  Original document content.
+                        index:
+                          type: integer
+                          description: The index value of the position in the input candidate doc array.
+                        relevance_score:
+                          type: number
+                          description: Similarity score.
+                  tokens:
+                    type: object
+                    properties:
+                      input_tokens:
+                        type: integer
+                      output_tokens:
+                        type: integer
+
     AudioRequest:
       type: object
       required:
@@ -1217,6 +1354,7 @@ components:
         file:
           type: string
           description: The audio file object (not file name) to transcribe
+          example: /path/to/audio.mp3 
           format: binary
         model:
           type: string
@@ -1450,12 +1588,14 @@ components:
             - Qwen/Qwen1.5-32B-Chat
             - Qwen/Qwen1.5-14B-Chat
             - Qwen/Qwen1.5-7B-Chat
+            - Qwen/Qwen2-Math-72B-Instruct
             - 01-ai/Yi-1.5-34B-Chat-16K
             - 01-ai/Yi-1.5-9B-Chat-16K
             - 01-ai/Yi-1.5-6B-Chat
             - THUDM/chatglm3-6b
             - THUDM/glm-4-9b-chat
             - internlm/internlm2_5-7b-chat
+            - internlm/internlm2_5-20b-chat
             - mistralai/Mixtral-8x7B-Instruct-v0.1
             - mistralai/Mistral-7B-Instruct-v0.2
             - meta-llama/Meta-Llama-3-8B-Instruct
