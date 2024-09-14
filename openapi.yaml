@@ -417,6 +417,64 @@ paths:
                 $ref: '#/components/schemas/StringData'
       deprecated: false
 
+  /image/generations:
+    post:
+      summary: Flux.1-dev
+      operationId: black-forest-labs/FLUX.1-dev
+      description: Creates an image response for the given prompt.
+      tags:
+        - Text To Image
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/black-forest-labs-FLUX.1-dev"
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImagesGenerationResponse"
+        '400':
+          description: 'BadRequest'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StringData"
+        '401':
+          description: 'Unauthorized'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StringData"
+        '404':
+          description: 'NotFound'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StringData"
+        '429':
+          description: 'RateLimit'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StringData"
+        '503':
+          description: 'Overloaded'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StringData"
+        '504':
+          description: 'Timeout'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StringData"
+      deprecated: false
+
+
   /black-forest-labs/FLUX.1-schnell/text-to-image:
     post:
       summary: Flux.1-schnell
@@ -1791,16 +1849,23 @@ components:
             content:
               type: string
 
-    black-forest-labs-FLUX.1-schnell:
+    black-forest-labs-FLUX.1-dev:
       type: object
       required:
         - prompt
         - image_size
         - num_inference_steps
       properties:
+        model:
+          type: string
+          description: The name of the model to query.
+          example: black-forest-labs/FLUX.1-dev
+          default: black-forest-labs/FLUX.1-dev
+          enum:
+            - black-forest-labs/FLUX.1-dev
         prompt:
           type: string
-          default: an island near sea, with seagulls, moon shining over the sea, light house, boats int he background, fish flying over the sea
+          default: a man
         image_size:
           title: Image Size
           enum:
@@ -1820,8 +1885,33 @@ components:
           title: Number Inference Steps
           type: integer
           minimum: 1
-          maximum: 100
+          maximum: 30
           default: 20
+
+    black-forest-labs-FLUX.1-schnell:
+      type: object
+      required:
+        - prompt
+        - image_size
+      properties:
+        prompt:
+          type: string
+          default: an island near sea, with seagulls, moon shining over the sea, light house, boats int he background, fish flying over the sea
+        image_size:
+          title: Image Size
+          enum:
+            - 1024x1024
+            - 512x1024
+            - 768x512
+            - 768x1024
+            - 1024x576
+            - 576x1024
+          default: 1024x1024
+        seed:
+          title: Seed
+          type: integer
+          minimum: 0
+          maximum: 9999999999
 
     stable-diffusion-3-medium_text-to-image:
       type: object
