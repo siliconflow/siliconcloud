@@ -1672,6 +1672,7 @@ components:
             - Pro/mistralai/Mistral-7B-Instruct-v0.2
             - Pro/google/gemma-2-9b-it
             - mattshumer/Reflection-Llama-3.1-70B
+            - Vendor-A/Qwen/Qwen2-72B-Instruct
 
 
         messages:
