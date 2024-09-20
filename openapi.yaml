@@ -118,6 +118,21 @@ paths:
       summary: Get Model List
       operationId: Retrieve a list of models.
       description: Retrieve models information.
+      parameters:
+        - name: type
+          in: query
+          description: The type of models
+          required: false
+          schema:
+            type: string
+            enum: [ text, image, audio, video ]
+        - name: sub_type
+          in: query
+          description: The sub type of models. You can use it to filter models individually without setting type.
+          required: false
+          schema:
+            type: string
+            enum: [ chat, embedding, reranker, text-to-image, image-to-image,  speech-to-text, text-to-video]
       tags:
         - Models
       responses:
@@ -646,7 +661,7 @@ paths:
                 $ref: "#/components/schemas/StringData"
       deprecated: false
 
-  
+
   /stabilityai/stable-diffusion-2-1/text-to-image:
     post:
       summary: Stable Diffusion 2.1
@@ -1420,7 +1435,7 @@ components:
           example: iic/SenseVoiceSmall
           enum:
             - iic/SenseVoiceSmall
-    
+
     AudioResponse:
       type: object
       description: Represents a transcription response returned by model, based on the provided input.
@@ -2538,7 +2553,7 @@ components:
           minimum: 0
           title: Seed
           type: integer
-    
+
     PhotoMaker_image-to-image:
       type: object
       required:
