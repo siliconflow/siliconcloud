@@ -445,6 +445,7 @@ paths:
             schema:
               oneOf:
                 - $ref: "#/components/schemas/FLUX.1-schnell"
+                - $ref: "#/components/schemas/Pro-FLUX.1-schnell"
                 - $ref: "#/components/schemas/FLUX.1-dev"
                 - $ref: "#/components/schemas/stable-diffusion-3-medium"
                 - $ref: "#/components/schemas/stable-diffusion-xl-base-1.0"
@@ -923,17 +924,16 @@ components:
             - deepseek-ai/deepseek-llm-67b-chat
             - deepseek-ai/DeepSeek-V2.5
             - Qwen/Qwen2.5-72B-Instruct
+            - Qwen/Qwen2.5-Math-72B-Instruct
             - Qwen/Qwen2.5-32B-Instruct
             - Qwen/Qwen2.5-14B-Instruct
             - Qwen/Qwen2.5-7B-Instruct
+            - Qwen/Qwen2.5-Coder-7B-Instruct
             - Qwen/Qwen2-72B-Instruct
             - Qwen/Qwen2-7B-Instruct
             - Qwen/Qwen2-1.5B-Instruct
             - Qwen/Qwen2-57B-A14B-Instruct
             - Qwen/Qwen1.5-110B-Chat
-            - Qwen/Qwen1.5-32B-Chat
-            - Qwen/Qwen1.5-14B-Chat
-            - Qwen/Qwen1.5-7B-Chat
             - Qwen/Qwen2-Math-72B-Instruct
             - 01-ai/Yi-1.5-34B-Chat-16K
             - 01-ai/Yi-1.5-9B-Chat-16K
@@ -942,13 +942,11 @@ components:
             - THUDM/glm-4-9b-chat
             - internlm/internlm2_5-7b-chat
             - internlm/internlm2_5-20b-chat
-            - mistralai/Mixtral-8x7B-Instruct-v0.1
-            - mistralai/Mistral-7B-Instruct-v0.2
             - meta-llama/Meta-Llama-3-8B-Instruct
             - meta-llama/Meta-Llama-3-70B-Instruct
+            - Pro/Qwen/Qwen2.5-7B-Instruct
             - Pro/Qwen/Qwen2-7B-Instruct
             - Pro/Qwen/Qwen2-1.5B-Instruct
-            - Pro/Qwen/Qwen1.5-7B-Chat
             - Pro/01-ai/Yi-1.5-9B-Chat-16K
             - Pro/01-ai/Yi-1.5-6B-Chat
             - Pro/THUDM/chatglm3-6b
@@ -956,9 +954,7 @@ components:
             - Pro/internlm/internlm2_5-7b-chat
             - Pro/meta-llama/Meta-Llama-3-8B-Instruct
             - Pro/meta-llama/Meta-Llama-3.1-8B-Instruct
-            - Pro/mistralai/Mistral-7B-Instruct-v0.2
             - Pro/google/gemma-2-9b-it
-            - mattshumer/Reflection-Llama-3.1-70B
             - Vendor-A/Qwen/Qwen2-72B-Instruct
 
 
@@ -1152,9 +1148,35 @@ components:
         model:
           type: string
           default: black-forest-labs/FLUX.1-schnell
+        prompt:
+          type: string
+          default: an island near sea, with seagulls, moon shining over the sea, light house, boats int he background, fish flying over the sea
+        image_size:
+          title: Image Size
           enum:
-            - black-forest-labs/FLUX.1-schnell
-            - Pro/black-forest-labs/FLUX.1-schnell
+            - 1024x1024
+            - 512x1024
+            - 768x512
+            - 768x1024
+            - 1024x576
+            - 576x1024
+          default: 1024x1024
+        seed:
+          title: Seed
+          type: integer
+          minimum: 0
+          maximum: 9999999999
+    
+    Pro-FLUX.1-schnell:
+      type: object
+      required:
+        - model
+        - prompt
+        - image_size
+      properties:
+        model:
+          type: string
+          default: Pro/black-forest-labs/FLUX.1-schnell
         prompt:
           type: string
           default: an island near sea, with seagulls, moon shining over the sea, light house, boats int he background, fish flying over the sea
