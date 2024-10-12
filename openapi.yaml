@@ -949,6 +949,7 @@ components:
             - Pro/meta-llama/Meta-Llama-3.1-8B-Instruct
             - Pro/google/gemma-2-9b-it
             - Vendor-A/Qwen/Qwen2-72B-Instruct
+            - TeleAI/TeleChat2
 
 
         messages:
