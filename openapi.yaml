@@ -450,7 +450,7 @@ paths:
                 - $ref: "#/components/schemas/stable-diffusion-3-medium"
                 - $ref: "#/components/schemas/stable-diffusion-xl-base-1.0"
                 - $ref: "#/components/schemas/stable-diffusion-2-1"
-              
+
       responses:
         '200':
           description: '200'
@@ -919,7 +919,6 @@ components:
             - deepseek-ai/deepseek-llm-67b-chat
             - deepseek-ai/DeepSeek-V2.5
             - Qwen/Qwen2.5-72B-Instruct
-            - Qwen/Qwen2.5-Math-72B-Instruct
             - Qwen/Qwen2.5-32B-Instruct
             - Qwen/Qwen2.5-14B-Instruct
             - Qwen/Qwen2.5-7B-Instruct
@@ -1389,7 +1388,7 @@ components:
           default: 7.5
         image:
           $ref: "#/components/schemas/upload_image"
-        
+
 
     ImagesGenerationResponse:
       type: object
