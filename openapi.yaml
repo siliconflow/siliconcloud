@@ -1144,6 +1144,8 @@ components:
         model:
           type: string
           default: black-forest-labs/FLUX.1-schnell
+          enum:
+            - black-forest-labs/FLUX.1-schnell
         prompt:
           type: string
           default: an island near sea, with seagulls, moon shining over the sea, light house, boats int he background, fish flying over the sea
@@ -1174,6 +1176,8 @@ components:
         model:
           type: string
           default: Pro/black-forest-labs/FLUX.1-schnell
+          enum:
+            - Pro/black-forest-labs/FLUX.1-schnell
         prompt:
           type: string
           default: an island near sea, with seagulls, moon shining over the sea, light house, boats int he background, fish flying over the sea
@@ -1206,6 +1210,8 @@ components:
           type: string
           description: The name of the model to query.
           default: black-forest-labs/FLUX.1-dev
+          enum:
+            - black-forest-labs/FLUX.1-dev
         prompt:
           type: string
           default: a man
@@ -1245,6 +1251,8 @@ components:
         model:
           type: string
           default: stabilityai/stable-diffusion-3-medium
+          enum:
+            - stabilityai/stable-diffusion-3-medium
         prompt:
           type: string
           default: an island near sea, with seagulls, moon shining over the sea, light house, boats int he background, fish flying over the sea
@@ -1299,6 +1307,8 @@ components:
         model:
           type: string
           default: stabilityai/stable-diffusion-xl-base-1.0
+          enum:
+            - stabilityai/stable-diffusion-xl-base-1.0
         prompt:
           type: string
           default: an island near sea, with seagulls, moon shining over the sea, light house, boats int he background, fish flying over the sea
@@ -1355,6 +1365,8 @@ components:
         model:
           type: string
           default: stabilityai/stable-diffusion-2-1
+          enum:
+            - stabilityai/stable-diffusion-2-1
         prompt:
           type: string
           default: an island near sea, with seagulls, moon shining over the sea, light house, boats int he background, fish flying over the sea
