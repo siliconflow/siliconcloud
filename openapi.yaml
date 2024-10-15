@@ -931,6 +931,7 @@ components:
             - THUDM/chatglm3-6b
             - THUDM/glm-4-9b-chat
             - Vendor-A/Qwen/Qwen2-72B-Instruct
+            - Vendor-A/Qwen/Qwen2.5-72B-Instruct
             - internlm/internlm2_5-7b-chat
             - internlm/internlm2_5-20b-chat
             - meta-llama/Meta-Llama-3.1-405B-Instruct
