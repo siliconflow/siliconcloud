@@ -432,7 +432,7 @@ paths:
                 $ref: '#/components/schemas/StringData'
       deprecated: false
 
-  /image/generations:
+  /images/generations:
     post:
       summary: Image Generation
       operationId: ImageGeneration
