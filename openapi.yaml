@@ -898,6 +898,56 @@ components:
           finish_reason:
             $ref: "#/components/schemas/FinishReason"
 
+    ChatCompletionRequestMessageContentPartText:
+      type: object
+      title: Text content part
+      properties:
+        type:
+          type: string
+          enum: [ "text" ]
+          description: The type of the content part.
+          default: "text"
+        text:
+          type: string
+          description: The text content.
+          default: "描述这张图片"
+      required:
+        - type
+        - text
+
+    ChatCompletionRequestMessageContentPartImage:
+      type: object
+      title: Image content part
+      properties:
+        type:
+          type: string
+          enum: [ "image_url" ]
+          description: The type of the content part.
+          default: "image_url"
+        image_url:
+          type: object
+          properties:
+            url:
+              type: string
+              description: Either a URL of the image or the base64 encoded image data.
+              default: "https://sf-maas-uat-prod.oss-cn-shanghai.aliyuncs.com/dog.png"
+            detail:
+              type: string
+              description: Specifies the detail level of the image.
+              enum: [ "auto", "low", "high" ]
+              default: "auto"
+          required:
+            - url
+      required:
+        - type
+        - image_url
+
+    ChatCompletionRequestUserMessageContentPart:
+      oneOf:
+        - $ref: "#/components/schemas/ChatCompletionRequestMessageContentPartText"
+        - $ref: "#/components/schemas/ChatCompletionRequestMessageContentPartImage"
+      x-oaiExpandable: true
+
     ChatCompletionRequest:
       type: object
       required:
@@ -974,10 +1024,16 @@ components:
                   - assistant
                   - system
               content:
-                type: string
-                description: The contents of the message.
-                example: SiliconCloud推出分层速率方案与免费模型RPM提升10倍，对于整个大模型应用领域带来哪些改变？
-                default: SiliconCloud推出分层速率方案与免费模型RPM提升10倍，对于整个大模型应用领域带来哪些改变？
+                oneOf:
+                  - type: string
+                    description: The contents of the message.
+                    example: SiliconCloud推出分层速率方案与免费模型RPM提升10倍，对于整个大模型应用领域带来哪些改变？
+                    default: SiliconCloud推出分层速率方案与免费模型RPM提升10倍，对于整个大模型应用领域带来哪些改变？
+                  - type: array
+                    description: An array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Image input is only supported when using the `gpt-4o` model.
+                    items:
+                      $ref: "#/components/schemas/ChatCompletionRequestUserMessageContentPart"
+                    minItems: 1
             required:
               - role
               - content
