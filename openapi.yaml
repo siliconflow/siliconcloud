@@ -987,6 +987,7 @@ components:
             - internlm/internlm2_5-20b-chat
             - OpenGVLab/InternVL2-Llama3-76B
             - OpenGVLab/InternVL2-26B
+            - nvidia/Llama-3.1-Nemotron-70B-Instruct
             - meta-llama/Meta-Llama-3.1-405B-Instruct
             - meta-llama/Meta-Llama-3.1-70B-Instruct
             - meta-llama/Meta-Llama-3.1-8B-Instruct
